@@ -7,7 +7,7 @@ Change to directory with Dockerfile
 
 Use the following command to build the image with the Dockerfile settings.
 
-```docker build -t imagename``
+```docker build -t imagename```
 
 
 ## Pushing image to DockerHub
