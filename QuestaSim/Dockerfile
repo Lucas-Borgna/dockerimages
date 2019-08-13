@@ -7,5 +7,5 @@ RUN yum -y update \
     && yum install xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-apps -y \
     && yum clean all 
 
-RUN pip install cocotb
+
 
