@@ -22,9 +22,13 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
 
+
 # $ Ignoring krallin tini 
 
 RUN conda install pandas pytables
 
 RUN conda install -c conda-forge uproot
 
+# $ Clean up conda
+
+RUN conda clean --all --yes
