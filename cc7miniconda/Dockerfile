@@ -1,16 +1,30 @@
 FROM cern/cc7-base
 
-RUN yum -y update \
-    && yum -y install curl bzip2 xrootd-client \
-    && curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
-    && bash /tmp/miniconda.sh -bfp /usr/local/ \
-    && rm -rf /tmp/miniconda.sh \
-    && conda install -y python=3 \
-    && conda update conda \
-    && conda clean --all --yes \
-    && rpm -e --nodeps curl bzip2 \
-    && yum clean all 
+# $ Reworking this example using https://hub.docker.com/r/continuumio/miniconda/dockerfile
 
-RUN pip install pandas uproot
+ENV PATH /opt/conda/bin:$PATH
 
-RUN pip install --upgrade tables
+# $ CentOS7 updates
+
+RUN yum -y update
+
+# $ Dependencies for xrootd
+
+RUN yum -y install wget curl bzip2 xrootd-client
+
+# $ Acquiring & Installing Miniconda
+
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh && \
+    /opt/conda/bin/conda clean -tipsy && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc
+
+# $ Ignoring krallin tini 
+
+RUN conda install pandas pytables
+
+RUN conda install -c conda-forge uproot
+
