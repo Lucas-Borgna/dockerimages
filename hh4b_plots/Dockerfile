@@ -28,7 +28,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.2-Linux
 
 RUN conda install -c conda-forge xrootd
 
-RUN pip install pandas==0.24.2 numpy==1.19.2 tqdm==4.45.0 uproot==3.11.3 matplotlib==3.3.0
+RUN pip install pandas==0.24.2 numpy==1.19.2 scipy==1.5.2 tqdm==4.45.0 uproot==3.11.3 matplotlib==3.3.0
 
 # $ Clean up conda
 
